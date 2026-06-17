@@ -4,7 +4,7 @@ Personal shell utilities for zsh.
 
 ## Install
 
-git clone https://github.com/yourname/shell-utils.git
+git clone https://github.com/dem0nk/shell-utils.git
 cd shell-utils && ./install.sh && source ~/.zshrc
 
 ## Uninstall
