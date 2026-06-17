@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Filesystem Utilities
 # rmexcept — rm -rf everything except specified directories
 
