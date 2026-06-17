@@ -6,6 +6,7 @@ rmexcept() {
         echo "Usage: rmexcept <dir1> [dir2] [dir3] ..."
         return 1
     fi
+    setopt extendedglob
     local pattern
     pattern=$(IFS='|'; echo "$*")
     rm -rf ^($pattern)
