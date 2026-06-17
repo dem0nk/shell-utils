@@ -35,9 +35,9 @@ Utilities for HTB workflow.
 
 Filesystem utilities.
 
-| Function | Usage                       | Description                                                   |
-| -------- | --------------------------- | ------------------------------------------------------------- |
-| rmexcept | rmexcept \<dir1\> [dir2...] | Deletes everything in current directory except specified dirs |
+| Function | Usage                                       | Description                                                |
+| -------- | ------------------------------------------- | ---------------------------------------------------------- |
+| rmexcept | rmexcept \<directory\> \<keep1\> [keep2...] | Deletes everything inside directory except specified items |
 
 ### vars.zsh
 
