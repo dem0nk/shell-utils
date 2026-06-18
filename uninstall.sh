@@ -8,5 +8,5 @@ if ! grep -q "$MARKER" "$ZSHRC"; then
 fi
 
 # Remove the marker line and the for loop that follows (3 lines total)
-sed -i "/$MARKER/,+3d" "$ZSHRC"
+sed -i "/$MARKER/,+4d" "$ZSHRC"
 echo "Uninstalled. Run: source ~/.zshrc"

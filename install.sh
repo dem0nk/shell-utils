@@ -14,6 +14,7 @@ cat >> "$ZSHRC" <<EOF
 
 $MARKER
 [ -f "\$HOME/.shell_vars" ] && source "\$HOME/.shell_vars"
+[ -f "\$HOME/.shell_aliases" ] && source "\$HOME/.shell_aliases"
 
 for f in "$REPO_DIR"/functions/*.zsh; do
     source "\$f"
