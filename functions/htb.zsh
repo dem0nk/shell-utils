@@ -9,7 +9,8 @@ mkhtb() {
         return 1
     fi
     local box="htb/$1"
-    mkdir -p "$box/nmap" && cd "$box" && tmux new-session -s "$1"
+    # Added -A to attach to session if it already exists
+    mkdir -p "$box/nmap" && cd "$box" && tmux new-session -A -s "$1"
 }
 
 sethtb() {
@@ -34,7 +35,8 @@ sethtb() {
         escaped_target=$(printf '%s' "$target" | sed 's/[.[\*^$]/\\&/g')
 
         local new_line
-        new_line=$(echo "$current_line" | sed "s/ $escaped_target//g; s/  */ /g; s/ *$//")
+        # Fixed: Match spaces or tabs, and collapse them properly
+        new_line=$(echo "$current_line" | sed "s/[[:space:]]$escaped_target//g; s/[[:space:]]\{1,\}/ /g; s/[[:space:]]*$//")
 
         if [ -z "$(echo "$new_line" | awk '{print $2}')" ]; then
             echo "Warning: No hostnames left. Removing the last line."
@@ -54,7 +56,8 @@ sethtb() {
         local ip="$1"
         shift
         local hostnames="$*"
-        sudo sed -i "$ s/.*/$ip\t$hostnames/" /etc/hosts
+        # Fixed: Changed sed delimiter to | to avoid conflicts with slashes
+        sudo sed -i "\$ s|.*|$ip\t$hostnames|" /etc/hosts
     fi
 }
 
