@@ -1,6 +1,5 @@
 # Core utilities
-# sourcef — source all shell-utils managed files
-
+# sourcef — source vars and aliases managed by shell-utils
 VARS_FILE="$HOME/.shell_vars"
 ALIASES_FILE="$HOME/.shell_aliases"
 
