@@ -1,6 +1,6 @@
 # shell-utils
 
-Personal shell utilities for zsh. Built for HTB and general use.
+Personal shell utilities for zsh. Built for HTB, OSCP, and general pentesting workflows.
 
 ## Install
 
@@ -19,17 +19,23 @@ cd shell-utils && ./install.sh
 
 ## Functions
 
-### htb.zsh
+### boxes.zsh
 
-Utilities for HTB workflow.
+Utilities for target workflow (directory creation, tmux, and /etc/hosts management).
 
-| Function  | Usage                                 | Description                                                           |
-| --------- | ------------------------------------- | --------------------------------------------------------------------- |
-| mkhtb     | mkhtb \<box\>                         | Creates htb/\<box\>/nmap, cds in, starts tmux session named after box |
-| sethtb    | sethtb \<ip\> \<host\> [subdomain...] | Sets last /etc/hosts entry                                            |
-| sethtb -s | sethtb -s \<subdomain\>               | Appends subdomain to last entry                                       |
-| sethtb -r | sethtb -r \<domain\>                  | Removes domain from last entry                                        |
-| getports  | getports [file]                       | Extracts open ports from gnmap file, defaults to nmap/init.gnmap      |
+| Function  | Usage                                  | Description                                                                     |
+| --------- | -------------------------------------- | ------------------------------------------------------------------------------- |
+| mkbox     | mkbox [-H \| -O \| -D \<dir\>] \<box\> | Creates target directory structure, cds in, starts tmux session named after box |
+| setbox    | setbox \<ip\> \<host\> [subdomain...]  | Sets last /etc/hosts entry                                                      |
+| setbox -s | setbox -s \<subdomain\>                | Appends subdomain to last entry                                                 |
+| setbox -r | setbox -r \<domain\>                   | Removes domain from last entry                                                  |
+| getports  | getports [file]                        | Extracts open ports from gnmap file, defaults to nmap/init.gnmap                |
+
+**`mkbox` Flags:**
+
+- `-H` : Hack The Box (Default). Creates `htb/<box>/nmap`
+- `-O` : OSCP. Creates `oscp/<box>/nmap`
+- `-D` : Custom directory. e.g., `mkbox -D thm <box>` creates `thm/<box>/nmap`
 
 ### fs.zsh
 
