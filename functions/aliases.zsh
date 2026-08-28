@@ -2,7 +2,6 @@
 # setalias  — add or update an alias
 # rmalias   — remove an alias
 # listalias — list all aliases
-
 ALIASES_FILE="$HOME/.shell_aliases"
 
 # Source on shell startup
@@ -16,13 +15,22 @@ setalias() {
     local name="$1"
     shift
     local cmd="$*"
-
-    if grep -q "^alias $name=" "$ALIASES_FILE" 2>/dev/null; then
-        sed -i "s|^alias $name=.*|alias $name='$cmd'|" "$ALIASES_FILE"
-    else
-        echo "alias $name='$cmd'" >> "$ALIASES_FILE"
+    
+    # Validate alias name
+    if [[ ! "$name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+        echo "Error: Invalid alias name '$name'"
+        return 1
     fi
 
+    # Escape single quotes and backslashes for safe embedding in single quotes
+    local esc="${cmd//\\/\\\\}"
+    esc="${esc//\'/\'\\\'\'}"
+
+    if grep -q "^alias $name=" "$ALIASES_FILE" 2>/dev/null; then
+        sed -i "s|^alias $name=.*|alias $name='$esc'|" "$ALIASES_FILE"
+    else
+        printf "alias %s='%s'\n" "$name" "$esc" >> "$ALIASES_FILE"
+    fi
     alias "$name=$cmd"
     echo "Set alias $name='$cmd'"
 }
@@ -32,7 +40,12 @@ rmalias() {
         echo "Usage: rmalias <name>"
         return 1
     fi
-    sed -i "/^alias $1=/d" "$ALIASES_FILE"
+    local name="$1"
+    if [[ ! "$name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+        echo "Error: Invalid alias name '$name'"
+        return 1
+    fi
+    sed -i "/^alias $name=/d" "$ALIASES_FILE"
     unalias "$1" 2>/dev/null
     echo "Removed alias $1"
 }
